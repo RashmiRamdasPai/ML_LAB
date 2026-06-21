@@ -1,23 +1,27 @@
-import heapq
+from queue import PriorityQueue
 
-def best_first_search(graph, start, goal, h):
-    pq = [(h[start], start)]
+def best_first_search(start, goal, graph, h):
     visited = set()
+    pq = PriorityQueue()
 
-    while pq:
-        _, current = heapq.heappop(pq)
+    pq.put((h[start], start))
+
+    while not pq.empty():
+        heuristic, current = pq.get()
+
+        if current in visited:
+            continue
+
+        print(current, end=" ")
+        visited.add(current)
 
         if current == goal:
-            print("Goal Reached")
+            print("\nGoal Reached!")
             return
 
-        if current not in visited:
-            print(current, end=" ")
-            visited.add(current)
-
-            for neighbor in graph[current]:
-                if neighbor not in visited:
-                    heapq.heappush(pq, (h[neighbor], neighbor))
+        for neighbor in graph[current]:
+            if neighbor not in visited:
+                pq.put((h[neighbor], neighbor))
 
 # Graph
 graph = {
@@ -41,4 +45,4 @@ h = {
     'G': 0
 }
 
-best_first_search(graph, 'A', 'G', h)
+best_first_search('A', 'G', graph, h)
