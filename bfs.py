@@ -1,5 +1,4 @@
-
- import heapq
+import heapq
 
 def best_first_search(graph, start, goal, h):
     pq = [(h[start], start)]
