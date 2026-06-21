@@ -1,21 +1,39 @@
-import numpy as np
+import numpy as np 
+ 
+def sigmoid(x): 
+    return 1 / (1 + np.exp(-x)) 
+ 
+class Perceptron: 
+    def __init__(self, input_size): 
+        self.weights = np.random.rand(input_size) 
+        self.bias = np.random.rand(1)
+ 
+    def forward(self, inputs): 
+        total_input = np.dot(inputs, self.weights) + self.bias 
+        output = sigmoid(total_input) 
+        return output 
+ 
+    def train(self, X, y, epochs=1000, learning_rate=0.1): 
+        for epoch in range(epochs): 
+            for i in range(X.shape[0]): 
+                output = self.forward(X[i]) 
+                error = y[i] - output 
+                self.weights += learning_rate * error * X[i] 
+                self.bias += learning_rate * error 
+ 
+X_and = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y_and = np.array([0, 0, 0, 1])
+y_or = np.array([0, 1, 1, 1]) 
+ 
+perceptron_and = Perceptron(input_size=2) 
+perceptron_or = Perceptron(input_size=2) 
+ 
+perceptron_and.train(X_and, y_and, epochs=1000, learning_rate=0.1) 
+print("AND Function Predictions:")
+for x in X_and:
+    print(x, "->", round(perceptron_and.forward(x)))
 
-def perceptron(x, w, b):
-    y = np.dot(x, w) + b
-    return 1 if y >= 0 else 0
-
-# AND Function
-print("AND Gate")
-X = np.array([[0,0],[0,1],[1,0],[1,1]])
-w = np.array([1,1])
-b = -1.5
-
-for x in X:
-    print(x, "->", perceptron(x, w, b))
-
-# OR Function
-print("\nOR Gate")
-b = -0.5
-
-for x in X:
-    print(x, "->", perceptron(x, w, b))
+print("\nOR Function Predictions:")
+for x in X_and:
+    print(x, "->", round(perceptron_or.forward(x)))
+perceptron_or.train(X_and, y_or, epochs=1000, learning_rate=0.1) 
