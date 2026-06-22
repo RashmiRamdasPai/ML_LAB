@@ -32,8 +32,8 @@ perceptron_and.train(X_and, y_and, epochs=1000, learning_rate=0.1)
 print("AND Function Predictions:")
 for x in X_and:
     print(x, "->", round(perceptron_and.forward(x)))
-
+perceptron_or.train(X_and, y_or, epochs=1000, learning_rate=0.1) 
 print("\nOR Function Predictions:")
 for x in X_and:
     print(x, "->", round(perceptron_or.forward(x)))
-perceptron_or.train(X_and, y_or, epochs=1000, learning_rate=0.1) 
+
