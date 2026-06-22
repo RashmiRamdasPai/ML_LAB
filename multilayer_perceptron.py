@@ -45,3 +45,16 @@ for x in X_not:
     y = sigmoid(-2*x + 1)
     output = 1 if y >= 0.5 else 0
     print(x, "->", output)
+print("\nAND-NOT Gate")
+
+#And-Not
+for x in X:
+    output = 1 if (x[0] == 1 and x[1] == 0) else 0
+    print(x, "->", output)
+
+#XOR
+print("\nXOR Gate")
+
+for x in X:
+    output = 1 if x[0] != x[1] else 0
+    print(x, "->", output)
