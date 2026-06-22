@@ -52,6 +52,7 @@ for x in X:
     output = 1 if (x[0] == 1 and x[1] == 0) else 0
     print(x, "->", output)
 
+
 #XOR
 print("\nXOR Gate")
 
