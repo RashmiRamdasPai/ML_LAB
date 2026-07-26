@@ -1,26 +1,37 @@
-import random
-
+# Objective function
 def objective_function(x):
-  return -x ** 2 + 5
-
-def hill_climbing(start_x, step_size, max_iterations):
-  current_x = start_x
-  current_score = objective_function(current_x)
-
-  for i in range(max_iterations):
-    new_x = current_x + random.uniform(-step_size, step_size)
-    new_score = objective_function(new_x)
-
-    print(f"Iteration {i + 1}: x = {current_x:.4f}, f(x) = {current_score:.4f}")
-
-    if new_score > current_score:
-      current_x = new_x
-      current_score = new_score
-    else:
-      pass
-  
-  print("\nFinal Solution:")
-  print(f"x = {current_x:.4f}, f(x) = {current_score:.4f}")
-  return current_x, current_score
-
-best_x, best_score = hill_climbing(start_x=0.1, step_size=0.05, max_iterations=5)
+    return -(x - 5)**2 + 25
+# Hill Climbing Algorithm
+def hill_climbing(start, step_size, max_iterations):
+    # Current position
+    current = start
+    current_value = objective_function(current)
+    print("Starting Point =", current)
+    print("Function Value =", current_value)
+    print()
+    for i in range(max_iterations):
+        # Generate neighboring solutions
+        left = current - step_size
+        right = current + step_size
+        # Evaluate neighbors
+        left_value = objective_function(left)
+        right_value = objective_function(right)
+        # Move to better neighbor
+        if left_value > current_value:
+            current = left
+            current_value = left_value
+        elif right_value > current_value:
+            current = right
+            current_value = right_value
+        else:
+            # Local optimum reached
+            break
+    return current, current_value
+# Main Program
+start_position = float(input("Enter starting position: "))
+step_size = float(input("Enter step size: "))
+max_iterations = int(input("Enter maximum iterations: "))
+best_x, best_value = hill_climbing(start_position,step_size,max_iterations)
+print("\nOptimal Solution Found")
+print("x =", round(best_x, 2))
+print("Maximum Value =", round(best_value, 2))
