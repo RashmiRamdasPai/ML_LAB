@@ -23,14 +23,17 @@ def best_first_search(start, goal, graph, h):
             if neighbor not in visited:
                 pq.put((h[neighbor], neighbor))
 
-
 graph = {}
 heuristic = {}
+
 n = int(input("Enter number of nodes: "))
+
 for i in range(n):
     node = input("Enter node: ")
     heuristic[node] = int(input("Enter heuristic value: "))
     graph[node] = input("Enter neighbors separated by space: ").split()
+
 start = input("Enter start node: ")
 goal = input("Enter goal node: ")
-best_first_search(graph, heuristic, start, goal)
+
+best_first_search(start, goal, graph, heuristic)
