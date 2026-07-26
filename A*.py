@@ -1,50 +1,38 @@
 from queue import PriorityQueue
-
-def a_star(start, goal, graph, h):
-    pq = PriorityQueue()
-    pq.put((h[start], 0, start))  # (f=g+h, g, node)
-
+# A* Search Function
+def a_star(graph, heuristic, start, goal):
     visited = set()
-
+    pq = PriorityQueue()
+    # (f(n), g(n), node)
+    pq.put((heuristic[start], 0, start))
     while not pq.empty():
         f, g, current = pq.get()
-
-        if current == goal:
-            print("Goal Reached")
-            return
-
         if current in visited:
             continue
-
         print(current, end=" ")
+        if current == goal:
+            print("\nGoal Reached")
+            return
         visited.add(current)
-
         for neighbor, cost in graph[current]:
             if neighbor not in visited:
                 g_new = g + cost
-                f_new = g_new + h[neighbor]
+                f_new = g_new + heuristic[neighbor]
                 pq.put((f_new, g_new, neighbor))
+# -------- INPUT --------
 
-# Graph with costs
-graph = {
-    'A': [('B', 1), ('C', 4)],
-    'B': [('D', 2), ('E', 5)],
-    'C': [('F', 1)],
-    'D': [],
-    'E': [('G', 2)],
-    'F': [('G', 3)],
-    'G': []
-}
-
-# Heuristic values
-h = {
-    'A': 7,
-    'B': 6,
-    'C': 4,
-    'D': 4,
-    'E': 2,
-    'F': 2,
-    'G': 0
-}
-
-a_star('A', 'G', graph, h)
+graph = {}
+heuristic = {}
+n = int(input("Enter number of nodes: "))
+for i in range(n):
+    node = input("\nEnter node: ")
+    heuristic[node] = int(input("Enter heuristic value: ") )
+    neighbors = int(input("Enter number of neighbors: "))
+    graph[node] = []
+    for j in range(neighbors):
+        neighbor = input("Enter neighbor: ")
+        cost = int(input("Enter cost: "))
+        graph[node].append((neighbor, cost))
+start = input("\nEnter start node: ")
+goal = input("Enter goal node: ")
+a_star(graph, heuristic, start, goal)
