@@ -6,7 +6,7 @@ def sigmoid(x):
 class Perceptron: 
     def __init__(self, input_size): 
         self.weights = np.random.rand(input_size) 
-        self.bias = np.random.rand(1)
+        self.bias = np.random.rand()
  
     def forward(self, inputs): 
         total_input = np.dot(inputs, self.weights) + self.bias 
